@@ -16,6 +16,50 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 using namespace std;
 
+int isint(char a[])
+{
+    int len=strlen(a);
+    int minus=0;
+    int dsum=0;
+    for(int i=0;i<len;i++)
+    {
+        if(isdigit(a[i])!=0)
+            dsum++;
+        else if(a[i]=='-')
+            minus++;
+    }
+    if(dsum+minus==len)
+        return 1;
+    else
+        return 0;
+}
+int isfloat(char a[])
+{
+    int len=strlen(a);
+    int dsum=0;
+    int dot=0;
+    int minus=0;
+    for(int i=0;i<len;i++)
+    {
+        if(isdigit(a[i])!=0)
+        {
+            dsum++;
+        }
+        else if(a[i]=='.')
+        {
+            dot++;
+        }
+        else if(a[i]=='-')
+        {
+            minus++;
+        }
+    }
+    if(dsum+dot+minus==len)
+        return 1;
+    else
+        return 0;
+}
+
 /*************************/
 int random(int a)       //
 {                        //
@@ -57,7 +101,8 @@ int main() //main application body
 {
 
 int p, q, n, phi, e, d, option, e2, n2;
-char text[500], crp[500];
+int crp[500];
+char text[500];
 
 cout << "Please wait, the base numbers are being selected";
 
@@ -134,18 +179,18 @@ if(option == 1)
     cout << "key1 -> "; cin >> e2;
     cout << "key2 -> "; cin >> n2;
 
-int totchar = 0, i = 0;
+int tottext = 0, f = 0;
 unsigned long long int m;
 
   do{
 
-        totchar++;
+        tottext++;
 
-        i++;
-    }while(text[i] != '\0');
+        f++;
+    }while(text[f] != '\0');
 
 
-for(int i = 0; i < totchar; i++)
+for(int i = 0; i < tottext; i++)
 {
      m = (pow((text[i] + 0), e2));
     cout << m % n2 << ",";
@@ -156,12 +201,29 @@ for(int i = 0; i < totchar; i++)
 /*********************************DECRYPTION*********************************/
 if(option == 2)
 {
+    string a;
+    int k;
+
     system("cls");
     cout << "public keys: " << "{" << e << "; " << n << "}\t";
     cout << "private keys: " << "{" << d << "; " << n << "}";
     cout << "\n\t\t\t\t\t\tENTER THE ENCRYPTED TEXT\n";
 
-    gets(crp);
+
+    for (k = 0; ; k++)
+        {
+            if (scanf("%d", crp + k) != 1) /* error */;
+
+            if(cin.get() == '\0') break;
+        }
+
+        cout << "\n";
+
+    for(int i = 0; i < k; i++)
+    {
+        cout << crp[i] << "\n";
+    }
+
 }
     return 0;
 }
